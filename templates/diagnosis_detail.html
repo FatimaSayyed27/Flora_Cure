@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Diagnosis Detail | FloraCure</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+  <section class="max-w-3xl mx-auto px-6 py-16">
+    <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl p-8">
+
+      <h1 class="text-3xl font-extrabold text-emerald-700 italic mb-6">🌱 Diagnosis Detail</h1>
+
+      {% if d.plant_image %}
+        <img src="{{ d.plant_image.url }}" class="h-48 w-full object-cover rounded-xl mb-6 shadow">
+      {% endif %}
+
+      <div class="space-y-4">
+        <div class="bg-emerald-50 rounded-xl p-4">
+          <p class="text-emerald-700 font-bold">Plant Name</p>
+          <p class="text-slate-700">{{ d.plant_name }}</p>
+        </div>
+        <div class="bg-emerald-50 rounded-xl p-4">
+          <p class="text-emerald-700 font-bold">Disease</p>
+          <p class="text-slate-700">{{ d.disease }}</p>
+        </div>
+        <div class="bg-emerald-50 rounded-xl p-4">
+          <p class="text-emerald-700 font-bold">Symptoms</p>
+          <p class="text-slate-700">{{ d.symptoms }}</p>
+        </div>
+        <div class="bg-emerald-50 rounded-xl p-4">
+          <p class="text-emerald-700 font-bold">Cure</p>
+          <p class="text-slate-700">{{ d.cure }}</p>
+        </div>
+        <div class="bg-emerald-50 rounded-xl p-4">
+          <p class="text-emerald-700 font-bold">Date</p>
+          <p class="text-slate-700">{{ d.date|date:"d M Y, h:i A" }}</p>
+        </div>
+      </div>
+
+      <div class="flex space-x-4 mt-8">
+        <a href="{% url 'diagnosis_pdf' d.pk %}" 
+           class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow transition">
+          📄 Download PDF
+        </a>
+        <a href="{% url 'hh' %}" 
+           class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-6 py-3 rounded-xl shadow transition">
+          ← Back to History
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>

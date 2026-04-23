@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Diagnose | FloraCure</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+  <!-- Navbar -->
+  <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+      
+      <div class="flex items-center group cursor-pointer">
+        <div class="relative">
+          <div class="absolute -inset-1 bg-emerald-400 rounded-full blur opacity-10 group-hover:opacity-40 transition duration-300"></div>
+          <img src="/static/image/fc.png" alt="Logo" class="relative h-12 w-12 ">
+        </div>
+        <div class="ml-3 flex flex-col">
+          <span class="text-xl font-black tracking-tighter text-slate-800 leading-none uppercase">
+            Flora<span class="text-emerald-600">Cure</span>
+          </span>
+          <span class="text-[9px] uppercase tracking-[0.2em] font-bold text-emerald-500">Expert System</span>
+        </div>
+      </div>
+
+      <div class="hidden md:flex items-center bg-slate-50/80 px-2 py-1.5 rounded-2xl border border-slate-200/50 shadow-inner">
+        <a href="home" class="px-6 py-2 text-sm font-semibold text-slate-600 hover:text-emerald-600 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-200">Home</a>
+        <a href="dashboard" class="px-6 py-2 text-sm font-semibold text-slate-600 hover:text-emerald-600 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-200">Dashboard</a>
+        <a href="diagnose" class="px-6 py-2 text-sm font-semibold text-slate-600 hover:text-emerald-600 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-200">Diagnose</a>
+        <a href="hh" class="px-6 py-2 text-sm font-semibold text-slate-600 hover:text-emerald-600 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-200">History</a>
+      </div>
+
+      <div class="flex items-center">
+        <a href="profile" class="group relative">
+          <div class="absolute -inset-1 bg-emerald-500 rounded-full opacity-0 group-hover:opacity-100 transition duration-300 blur-sm"></div>
+          <img src="/static/image/icon.png" alt="Profile" class="relative h-11 w-11 rounded-full border-2 border-white object-cover shadow-sm transition-transform duration-200 group-hover:scale-105">
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Diagnose Section -->
+  <section class="max-w-4xl mx-auto px-2 py-16">
+    <!-- Gradient Heading -->
+    <h1 class="text-4xl font-extrabold italic 
+               bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800 
+               bg-clip-text text-transparent mb-2 drop-shadow-lg">
+      Diagnose your plant
+    </h1>
+    <p class="text-slate-600 mb-10">Upload a clear photo and select matching symptoms.</p>
+
+    <!-- Card -->
+    <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-emerald-200">
+
+      <!-- Form Start -->
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Upload Box -->
+        <label for="plant_image" 
+          class="flex items-center justify-center 
+                 border-2 border-dashed border-emerald-400 
+                 rounded-xl cursor-pointer hover:bg-emerald-50 
+                 mb-6 relative overflow-hidden 
+                 w-full h-72">
+          <div id="upload-info" class="flex flex-col items-center">
+            <svg class="w-12 h-12 text-emerald-500 mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v4h16v-4M4 12l8-8 8 8"/>
+            </svg>
+            <span class="text-slate-600">Click to upload plant image<br><span class="text-sm text-slate-400">JPG, PNG up to 5MB</span></span>
+          </div>
+          <input type="file" id="plant_image" name="plant_image" accept="image/*" class="hidden" onchange="previewImage(event)">
+          <img id="preview" src="" alt="Selected Plant Image" 
+               class="absolute inset-0 w-full h-full object-contain rounded-lg hidden bg-white">
+        </label>
+
+        <!-- Plant Type -->
+        <label class="block mt-6 mb-2 font-semibold text-emerald-700">Select Plant Type</label>
+        <select name="plant_name" class="w-full border border-emerald-300 rounded-lg p-3 mb-8 focus:ring-2 focus:outline-none focus:ring-emerald-500" onchange="toggleInput(this.value)">
+          <option>Choose plant</option>
+          <option value="Tomato">Tomato</option>
+          <option value="Rose">Rose</option>
+          <option value="Potato">Potato</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <input type="text" id="plant_input" class="w-full border border-emerald-300 rounded-lg p-3 mb-8 focus:ring-2 focus:outline-none focus:ring-emerald-500" name="plant_input" placeholder="Enter plant name" style="display:none;">
+
+        <!-- Symptoms -->
+        <h2 class="text-xl font-semibold text-emerald-700 mb-4">What symptoms do you see?</h2>
+  
+
+  <div class="grid grid-cols-2 gap-4 text-left">
+  <!-- 🍃 Leaf Problems -->
+  <p class="col-span-2 text-emerald-700 font-bold mt-2">🍃 Leaf Problems</p>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Yellowing leaves" class="mr-2 accent-emerald-600"> Yellowing leaves</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Brown leaf tips" class="mr-2 accent-emerald-600"> Brown leaf tips</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Black spots" class="mr-2 accent-emerald-600"> Black spots</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="White powder" class="mr-2 accent-emerald-600"> White powder</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Rust spots" class="mr-2 accent-emerald-600"> Rust spots</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Holes in leaves" class="mr-2 accent-emerald-600"> Holes in leaves</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Curling leaves" class="mr-2 accent-emerald-600"> Curling leaves</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Sticky leaves" class="mr-2 accent-emerald-600"> Sticky leaves</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Pale leaves" class="mr-2 accent-emerald-600"> Pale leaves</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Drooping leaves" class="mr-2 accent-emerald-600"> Drooping leaves</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Sticky residue" class="mr-2 accent-emerald-600"> Sticky residue</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Mosaic pattern" class="mr-2 accent-emerald-600"> Mosaic pattern</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Sooty mold" class="mr-2 accent-emerald-600"> Sooty mold</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Bleached leaves" class="mr-2 accent-emerald-600"> Bleached leaves</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Silver streaks on leaves" class="mr-2 accent-emerald-600"> Silver streaks on leaves</label>
+
+  <!-- 🌿 Stem Problems -->
+  <p class="col-span-2 text-emerald-700 font-bold mt-4">🌿 Stem Problems</p>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Wilting" class="mr-2 accent-emerald-600"> Wilting</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Stem rot" class="mr-2 accent-emerald-600"> Stem rot</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Black stem" class="mr-2 accent-emerald-600"> Black stem</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Leggy stem" class="mr-2 accent-emerald-600"> Leggy stem</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Galls on stem" class="mr-2 accent-emerald-600"> Galls on stem</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Brown bumps on stem" class="mr-2 accent-emerald-600"> Brown bumps on stem</label>
+
+  <!-- 🌱 Root Problems -->
+  <p class="col-span-2 text-emerald-700 font-bold mt-4">🌱 Root Problems</p>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Root rot" class="mr-2 accent-emerald-600"> Root rot</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Smelly roots" class="mr-2 accent-emerald-600"> Smelly roots</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Stunted growth" class="mr-2 accent-emerald-600"> Stunted growth</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="No growth" class="mr-2 accent-emerald-600"> No growth</label>
+
+  <!-- 🌸 Flower / Fruit Problems -->
+  <p class="col-span-2 text-emerald-700 font-bold mt-4">🌸 Flower / Fruit Problems</p>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Flower drop" class="mr-2 accent-emerald-600"> Flower drop</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="No flowers" class="mr-2 accent-emerald-600"> No flowers</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Fruit rot" class="mr-2 accent-emerald-600"> Fruit rot</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Small fruit" class="mr-2 accent-emerald-600"> Small fruit</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Bud drop" class="mr-2 accent-emerald-600"> Bud drop</label>
+
+  <!-- 🐛 Pest Problems -->
+  <p class="col-span-2 text-emerald-700 font-bold mt-4">🐛 Pest Problems</p>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Spider mites" class="mr-2 accent-emerald-600"> Spider mites</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Fine webbing" class="mr-2 accent-emerald-600"> Fine webbing</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Mealybugs" class="mr-2 accent-emerald-600"> Mealybugs</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="White cottony mass" class="mr-2 accent-emerald-600"> White cottony mass</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Whiteflies" class="mr-2 accent-emerald-600"> Whiteflies</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Thrips" class="mr-2 accent-emerald-600"> Thrips</label>
+
+  <!-- 🌡️ Environmental Problems -->
+  <p class="col-span-2 text-emerald-700 font-bold mt-4">🌡️ Environmental Problems</p>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Sunburn" class="mr-2 accent-emerald-600"> Sunburn</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Frost damage" class="mr-2 accent-emerald-600"> Frost damage</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Wilting despite watering" class="mr-2 accent-emerald-600"> Wilting despite watering</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Distorted leaves" class="mr-2 accent-emerald-600"> Distorted leaves</label>
+  <label class="flex items-center"><input type="checkbox" name="symptoms" value="Black after cold" class="mr-2 accent-emerald-600"> Black after cold</label>
+
+</div>
+        <!-- Analyse Button -->
+        <div class="text-center mt-10">
+          <button type="submit" class="bg-gradient-to-r from-emerald-500 to-emerald-700 
+                         hover:from-emerald-600 hover:to-emerald-800 
+                         text-white px-8 py-3 rounded-full shadow-lg 
+                         transition transform hover:scale-105 font-semibold">
+            Analyse Symptoms →
+          </button>
+        </div>
+      </form>
+      <!-- Form End -->
+
+    </div>
+
+  </section>
+
+  <script>
+    function previewImage(event) {
+      const preview = document.getElementById('preview');
+      const container = document.getElementById('preview-container');
+     
+      if (event.target.files.length > 0) {
+      preview.src = URL.createObjectURL(event.target.files[0]);
+      preview.classList.remove('hidden');
+      uploadInfo.style.display = 'none'; // hide icon + text
+    }
+    }
+
+    function toggleInput(value) {
+      const input = document.getElementById('plant_input');
+      if (value === 'Other') {
+        input.style.display = 'block';
+      } else {
+        input.style.display = 'none';
+      }
+    }
+
+  </script>
+
+</body>
+</html>
