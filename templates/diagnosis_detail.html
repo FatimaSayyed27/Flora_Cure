@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Diagnosis Detail | FloraCure</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -9,51 +10,114 @@
 </head>
 <body class="bg-slate-50 text-slate-900">
 
-  <section class="max-w-3xl mx-auto px-6 py-16">
-    <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl p-8">
+  <!-- Simple Navbar -->
+  <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 h-16 md:h-20 flex justify-between items-center">
+      <div class="flex items-center">
+        <img src="/static/image/fc.png" alt="Logo" class="h-9 w-9 md:h-12 md:w-12">
+        <div class="ml-2 flex flex-col">
+          <span class="text-lg font-black tracking-tighter text-slate-800 leading-none uppercase">
+            Flora<span class="text-emerald-600">Cure</span>
+          </span>
+          <span class="text-[8px] uppercase tracking-[0.2em] font-bold text-emerald-500">Expert System</span>
+        </div>
+      </div>
+      <a href="{% url 'hh' %}"
+         class="text-sm font-semibold text-emerald-600 hover:text-emerald-800 border border-emerald-300 px-4 py-2 rounded-xl hover:bg-emerald-50 transition">
+        ← Back
+      </a>
+    </div>
+  </nav>
 
-      <h1 class="text-3xl font-extrabold text-emerald-700 italic mb-6">🌱 Diagnosis Detail</h1>
+  <section class="max-w-3xl mx-auto px-4 md:px-6 py-8 md:py-16 pb-24 md:pb-16">
+    <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl p-5 md:p-8">
+
+      <h1 class="text-2xl md:text-3xl font-extrabold text-emerald-700 italic mb-4 md:mb-6">
+        🌱 Diagnosis Detail
+      </h1>
 
       {% if d.plant_image %}
-        <img src="{{ d.plant_image.url }}" class="h-48 w-full object-cover rounded-xl mb-6 shadow">
+        <img src="{{ d.plant_image.url }}"
+             class="h-40 md:h-48 w-full object-cover rounded-xl mb-5 md:mb-6 shadow">
       {% endif %}
 
-      <div class="space-y-4">
-        <div class="bg-emerald-50 rounded-xl p-4">
-          <p class="text-emerald-700 font-bold">Plant Name</p>
-          <p class="text-slate-700">{{ d.plant_name }}</p>
+      <div class="space-y-3 md:space-y-4">
+        <div class="bg-emerald-50 rounded-xl p-3 md:p-4">
+          <p class="text-emerald-700 font-bold text-sm md:text-base">Plant Name</p>
+          <p class="text-slate-700 text-sm md:text-base mt-1">{{ d.plant_name }}</p>
         </div>
-        <div class="bg-emerald-50 rounded-xl p-4">
-          <p class="text-emerald-700 font-bold">Disease</p>
-          <p class="text-slate-700">{{ d.disease }}</p>
+        <div class="bg-emerald-50 rounded-xl p-3 md:p-4">
+          <p class="text-emerald-700 font-bold text-sm md:text-base">Disease</p>
+          <p class="text-slate-700 text-sm md:text-base mt-1">{{ d.disease }}</p>
         </div>
-        <div class="bg-emerald-50 rounded-xl p-4">
-          <p class="text-emerald-700 font-bold">Symptoms</p>
-          <p class="text-slate-700">{{ d.symptoms }}</p>
+        <div class="bg-emerald-50 rounded-xl p-3 md:p-4">
+          <p class="text-emerald-700 font-bold text-sm md:text-base">Symptoms</p>
+          <p class="text-slate-700 text-sm md:text-base mt-1 leading-relaxed">{{ d.symptoms }}</p>
         </div>
-        <div class="bg-emerald-50 rounded-xl p-4">
-          <p class="text-emerald-700 font-bold">Cure</p>
-          <p class="text-slate-700">{{ d.cure }}</p>
+        <div class="bg-emerald-50 rounded-xl p-3 md:p-4">
+          <p class="text-emerald-700 font-bold text-sm md:text-base">Cure</p>
+          <p class="text-slate-700 text-sm md:text-base mt-1 leading-relaxed">{{ d.cure }}</p>
         </div>
-        <div class="bg-emerald-50 rounded-xl p-4">
-          <p class="text-emerald-700 font-bold">Date</p>
-          <p class="text-slate-700">{{ d.date|date:"d M Y, h:i A" }}</p>
+        <div class="bg-emerald-50 rounded-xl p-3 md:p-4">
+          <p class="text-emerald-700 font-bold text-sm md:text-base">Date</p>
+          <p class="text-slate-700 text-sm md:text-base mt-1">{{ d.date|date:"d M Y, h:i A" }}</p>
+        </div>
+        <div class="bg-emerald-50 rounded-xl p-3 md:p-4">
+          <p class="text-emerald-700 font-bold text-sm md:text-base">Status</p>
+          <p class="mt-1">
+            {% if d.is_cured %}
+              <span class="bg-emerald-200 text-emerald-800 text-sm font-semibold px-3 py-1 rounded-full">✅ Cured</span>
+            {% else %}
+              <span class="bg-amber-100 text-amber-700 text-sm font-semibold px-3 py-1 rounded-full">⏳ Under Treatment</span>
+            {% endif %}
+          </p>
         </div>
       </div>
 
-      <div class="flex space-x-4 mt-8">
-        <a href="{% url 'diagnosis_pdf' d.pk %}" 
-           class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow transition">
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-3 mt-6 md:mt-8">
+        <a href="{% url 'diagnosis_pdf' d.pk %}"
+           class="flex-1 text-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow transition">
           📄 Download PDF
         </a>
-        <a href="{% url 'hh' %}" 
-           class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-6 py-3 rounded-xl shadow transition">
-          ← Back to History
+        {% if not d.is_cured %}
+        <a href="{% url 'mark_cured' d.pk %}"
+           class="flex-1 text-center bg-white hover:bg-emerald-50 text-emerald-700 font-bold px-6 py-3 rounded-xl shadow border border-emerald-300 transition">
+          💊 Mark as Cured
+        </a>
+        {% endif %}
+        <a href="{% url 'hh' %}"
+           class="flex-1 text-center bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-6 py-3 rounded-xl shadow transition">
+          ← History
         </a>
       </div>
 
     </div>
   </section>
+
+  <!-- Bottom Mobile Nav -->
+  <div class="fixed bottom-0 left-0 right-0 md:hidden bg-white border-t border-slate-200 flex justify-around items-center py-2 z-50 shadow-lg">
+    <a href="home" class="flex flex-col items-center text-slate-500">
+      <span class="text-xl">🏠</span>
+      <span class="text-[10px] font-semibold mt-0.5">Home</span>
+    </a>
+    <a href="dashboard" class="flex flex-col items-center text-slate-500">
+      <span class="text-xl">📊</span>
+      <span class="text-[10px] font-semibold mt-0.5">Dashboard</span>
+    </a>
+    <a href="diagnose" class="flex flex-col items-center text-slate-500">
+      <span class="text-xl">🌿</span>
+      <span class="text-[10px] font-semibold mt-0.5">Diagnose</span>
+    </a>
+    <a href="hh" class="flex flex-col items-center text-emerald-600">
+      <span class="text-xl">📜</span>
+      <span class="text-[10px] font-semibold mt-0.5">History</span>
+    </a>
+    <a href="profile" class="flex flex-col items-center text-slate-500">
+      <span class="text-xl">👤</span>
+      <span class="text-[10px] font-semibold mt-0.5">Profile</span>
+    </a>
+  </div>
 
 </body>
 </html>

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard | FloraCure</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -13,21 +14,23 @@
 
   <!-- Navbar -->
   <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
-    <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-      
+    <div class="max-w-7xl mx-auto px-4 md:px-6 h-16 md:h-20 flex justify-between items-center">
+
+      <!-- Logo -->
       <div class="flex items-center group cursor-pointer">
         <div class="relative">
-         <div class="absolute -inset-1 bg-emerald-400 rounded-full blur opacity-10 group-hover:opacity-40 transition duration-300"></div>
-          <img src="/static/image/fc.png" alt="Logo" class="relative h-12 w-12 ">
+          <div class="absolute -inset-1 bg-emerald-400 rounded-full blur opacity-10 group-hover:opacity-40 transition duration-300"></div>
+          <img src="/static/image/fc.png" alt="Logo" class="relative h-9 w-9 md:h-12 md:w-12">
         </div>
-        <div class="ml-3 flex flex-col">
-          <span class="text-xl font-black tracking-tighter text-slate-800 leading-none uppercase">
+        <div class="ml-2 md:ml-3 flex flex-col">
+          <span class="text-lg md:text-xl font-black tracking-tighter text-slate-800 leading-none uppercase">
             Flora<span class="text-emerald-600">Cure</span>
           </span>
-          <span class="text-[9px] uppercase tracking-[0.2em] font-bold text-emerald-500">Expert System</span>
+          <span class="text-[8px] md:text-[9px] uppercase tracking-[0.2em] font-bold text-emerald-500">Expert System</span>
         </div>
       </div>
 
+      <!-- Desktop Nav -->
       <div class="hidden md:flex items-center bg-slate-50/80 px-2 py-1.5 rounded-2xl border border-slate-200/50 shadow-inner">
         <a href="home" class="px-6 py-2 text-sm font-semibold text-slate-600 hover:text-emerald-600 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-200">Home</a>
         <a href="dashboard" class="px-6 py-2 text-sm font-semibold text-slate-600 hover:text-emerald-600 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-200">Dashboard</a>
@@ -35,105 +38,181 @@
         <a href="hh" class="px-6 py-2 text-sm font-semibold text-slate-600 hover:text-emerald-600 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-200">History</a>
       </div>
 
-      <div class="flex items-center">
+      <!-- Right side: Profile + Hamburger -->
+      <div class="flex items-center gap-3">
         <a href="profile" class="group relative">
           <div class="absolute -inset-1 bg-emerald-500 rounded-full opacity-0 group-hover:opacity-100 transition duration-300 blur-sm"></div>
-          <img src="/static/image/icon.png" alt="Profile" class="relative h-11 w-11 rounded-full border-2 border-white object-cover shadow-sm transition-transform duration-200 group-hover:scale-105">
+          <img src="/static/image/icon.png" alt="Profile" class="relative h-9 w-9 md:h-11 md:w-11 rounded-full border-2 border-white object-cover shadow-sm transition-transform duration-200 group-hover:scale-105">
         </a>
+
+        <!-- Hamburger Button (mobile only) -->
+        <button id="menu-btn" class="md:hidden flex flex-col justify-center items-center w-9 h-9 rounded-xl bg-slate-100 hover:bg-emerald-50 transition gap-1.5">
+          <span class="w-5 h-0.5 bg-slate-600 transition-all duration-300" id="bar1"></span>
+          <span class="w-5 h-0.5 bg-slate-600 transition-all duration-300" id="bar2"></span>
+          <span class="w-5 h-0.5 bg-slate-600 transition-all duration-300" id="bar3"></span>
+        </button>
       </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 px-4 py-3 space-y-1">
+      <a href="home" class="block px-4 py-3 text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition">🏠 Home</a>
+      <a href="dashboard" class="block px-4 py-3 text-sm font-semibold text-emerald-600 bg-emerald-50 rounded-xl">📊 Dashboard</a>
+      <a href="diagnose" class="block px-4 py-3 text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition">🌿 Diagnose</a>
+      <a href="hh" class="block px-4 py-3 text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition">📜 History</a>
+      <a href="profile" class="block px-4 py-3 text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition">👤 Profile</a>
     </div>
   </nav>
 
   <!-- Greeting + Stats -->
-  <section class="max-w-6xl mx-auto px-6 py-12">
-    <h1 class="text-4xl font-extrabold text-slate-900  italic">
+  <section class="max-w-6xl mx-auto px-4 md:px-6 py-8 md:py-12">
+    <h1 class="text-2xl md:text-4xl font-extrabold text-slate-900 italic">
       Dashboard <span class="text-emerald-600">Overview</span>
     </h1>
-    <p class="text-slate-600 mb-8 ">Good morning, {{ user.username }} 🌱 — Here’s what’s happening with your plants today.</p>
+    <p class="text-slate-600 mb-6 md:mb-8 text-sm md:text-base">Good morning, {{ user.username }} 🌱 — Here's what's happening with your plants today.</p>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-      <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 hover:shadow-2xl transition">
-        <h2 class="text-3xl font-extrabold text-emerald-600">{{ total_diagnoses }}</h2>
-        <p class="text-slate-600 font-semibold">Total Diagnoses</p>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 text-center">
+      <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-4 md:p-6 hover:shadow-2xl transition">
+        <h2 class="text-2xl md:text-3xl font-extrabold text-emerald-600">{{ total_diagnoses }}</h2>
+        <p class="text-slate-600 font-semibold text-xs md:text-sm mt-1">Total Diagnoses</p>
       </div>
-      <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 hover:shadow-2xl transition">
-        <h2 class="text-3xl font-extrabold text-emerald-600">{{ plants_tracked }}</h2>
-        <p class="text-slate-600 font-semibold">Plants Tracked</p>
+      <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-4 md:p-6 hover:shadow-2xl transition">
+        <h2 class="text-2xl md:text-3xl font-extrabold text-emerald-600">{{ plants_tracked }}</h2>
+        <p class="text-slate-600 font-semibold text-xs md:text-sm mt-1">Plants Tracked</p>
       </div>
-      <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 hover:shadow-2xl transition">
-        <h2 class="text-3xl font-extrabold text-emerald-600">{{ active_treatments }}</h2>
-        <p class="text-slate-600 font-semibold">Active Treatments</p>
+      <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-4 md:p-6 hover:shadow-2xl transition">
+        <h2 class="text-2xl md:text-3xl font-extrabold text-emerald-600">{{ active_treatments }}</h2>
+        <p class="text-slate-600 font-semibold text-xs md:text-sm mt-1">Active Treatments</p>
       </div>
-      <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 hover:shadow-2xl transition">
-        <h2 class="text-3xl font-extrabold text-emerald-600">{{ cured_this_month }}</h2>
-        <p class="text-slate-600 font-semibold">Cured This Month</p>
+      <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-4 md:p-6 hover:shadow-2xl transition">
+        <h2 class="text-2xl md:text-3xl font-extrabold text-emerald-600">{{ cured_this_month }}</h2>
+        <p class="text-slate-600 font-semibold text-xs md:text-sm mt-1">Cured This Month</p>
       </div>
     </div>
   </section>
 
   <!-- Weather Section -->
-<section class="max-w-6xl mx-auto px-6 py-10">
-  <div class="relative bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6">
-    <div class="absolute -inset-1 bg-emerald-200 blur-3xl opacity-20 rounded-2xl"></div>
-    <h2 class="text-xl font-bold text-emerald-700 mb-2">Today's Weather</h2>
-    <p class="text-slate-700">
-      <span id="weather-temp">Detecting...</span> — 
-      <span id="weather-city">please allow location</span>
-    </p>
-    <p class="text-slate-500 text-sm" id="weather-condition"></p>
-    <p class="italic text-emerald-600 mt-2">🌿 Plant tip: <span id="weather-tip">Loading...</span></p>
-  </div>
-</section>
+  <section class="max-w-6xl mx-auto px-4 md:px-6 py-4 md:py-10">
+    <div class="relative bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-4 md:p-6">
+      <div class="absolute -inset-1 bg-emerald-200 blur-3xl opacity-20 rounded-2xl"></div>
+      <h2 class="text-lg md:text-xl font-bold text-emerald-700 mb-2">Today's Weather</h2>
+      <p class="text-slate-700 text-sm md:text-base">
+        <span id="weather-temp">Detecting...</span> —
+        <span id="weather-city">please allow location</span>
+      </p>
+      <p class="text-slate-500 text-xs md:text-sm" id="weather-condition"></p>
+      <p class="italic text-emerald-600 mt-2 text-sm md:text-base">🌿 Plant tip: <span id="weather-tip">Loading...</span></p>
+    </div>
+  </section>
 
+  <!-- Cure Alert -->
+  {% if request.GET.cure %}
+  <section class="max-w-6xl mx-auto px-4 md:px-6 py-4">
+    <div class="relative bg-emerald-50 border-2 border-emerald-300 rounded-2xl shadow-lg p-4 md:p-6">
+      <div class="relative">
+        <h2 class="text-lg md:text-xl font-bold text-emerald-700 mb-2">
+          💊 Cure Recommendation — <span class="text-slate-700 italic">{{ request.GET.plant }}</span>
+        </h2>
+        <p class="text-slate-700 text-sm md:text-base leading-relaxed">{{ request.GET.cure }}</p>
+        <a href="{% url 'dashboard' %}" class="inline-block mt-4 text-sm text-red-400 hover:text-red-600 font-semibold transition">
+          ✕ Dismiss
+        </a>
+      </div>
+    </div>
+  </section>
+  {% endif %}
 
   <!-- Recent Diagnoses -->
-  <section class="max-w-6xl mx-auto px-6 py-10">
-    <h2 class="text-3xl font-extrabold text-slate-900 mb-6">Recent Diagnoses</h2>
-    <div class="space-y-4">
+  <section class="max-w-6xl mx-auto px-4 md:px-6 py-6 md:py-10">
+    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-4 md:mb-6">Recent Diagnoses</h2>
+    <div class="space-y-3 md:space-y-4">
       {% for d in recent_diagnoses %}
       <div class="bg-white/80 backdrop-blur-lg rounded-xl shadow-md p-4 hover:shadow-lg transition">
-        <h3 class="font-bold text-emerald-700">{{ d.plant_name }}</h3>
-        <p class="text-slate-600">{{ d.disease }} — {{ d.date|timesince }} ago</p>
+        <h3 class="font-bold text-emerald-700 text-sm md:text-base">{{ d.plant_name }}</h3>
+        <p class="text-slate-600 text-sm">{{ d.disease }} — {{ d.date|timesince }} ago</p>
       </div>
       {% empty %}
-      <p class="text-slate-600 italic">No diagnoses yet.</p>
+      <p class="text-slate-600 italic text-sm">No diagnoses yet.</p>
       {% endfor %}
     </div>
 
-    <div class="text-center mt-8">
-      <a href="{% url 'diagnose' %}" 
-         class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-emerald-200 transition hover:-translate-y-1">
+    <div class="text-center mt-6 md:mt-8">
+      <a href="{% url 'diagnose' %}"
+         class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-emerald-200 transition hover:-translate-y-1 text-sm md:text-base">
         + New Diagnosis
       </a>
     </div>
   </section>
 
-  <script>
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(pos) {
-      const lat = pos.coords.latitude;
-      const lon = pos.coords.longitude;
+  <!-- Bottom Mobile Nav Bar -->
+  <div class="fixed bottom-0 left-0 right-0 md:hidden bg-white border-t border-slate-200 flex justify-around items-center py-2 z-50 shadow-lg">
+    <a href="home" class="flex flex-col items-center text-slate-500 hover:text-emerald-600 transition">
+      <span class="text-xl">🏠</span>
+      <span class="text-[10px] font-semibold mt-0.5">Home</span>
+    </a>
+    <a href="dashboard" class="flex flex-col items-center text-emerald-600">
+      <span class="text-xl">📊</span>
+      <span class="text-[10px] font-semibold mt-0.5">Dashboard</span>
+    </a>
+    <a href="diagnose" class="flex flex-col items-center text-slate-500 hover:text-emerald-600 transition">
+      <span class="text-xl">🌿</span>
+      <span class="text-[10px] font-semibold mt-0.5">Diagnose</span>
+    </a>
+    <a href="hh" class="flex flex-col items-center text-slate-500 hover:text-emerald-600 transition">
+      <span class="text-xl">📜</span>
+      <span class="text-[10px] font-semibold mt-0.5">History</span>
+    </a>
+    <a href="profile" class="flex flex-col items-center text-slate-500 hover:text-emerald-600 transition">
+      <span class="text-xl">👤</span>
+      <span class="text-[10px] font-semibold mt-0.5">Profile</span>
+    </a>
+  </div>
 
-      fetch(`/get-weather/?lat=${lat}&lon=${lon}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.error) {
-            document.getElementById("weather-temp").textContent = "N/A";
-            document.getElementById("weather-city").textContent = data.error;
-          } else {
-            document.getElementById("weather-temp").textContent = data.temperature + "°C";
-            document.getElementById("weather-city").textContent = data.city;
-            document.getElementById("weather-condition").textContent = data.condition;
-            document.getElementById("weather-tip").textContent = data.tip;
-          }
-        });
-    }, function() {
-      document.getElementById("weather-city").textContent = "Location access denied";
-      document.getElementById("weather-temp").textContent = "N/A";
-      document.getElementById("weather-tip").textContent = "Allow location to get weather tips.";
+  <!-- Bottom padding for mobile nav -->
+  <div class="md:hidden h-16"></div>
+
+  <script>
+    // Hamburger menu toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const bar1 = document.getElementById('bar1');
+    const bar2 = document.getElementById('bar2');
+    const bar3 = document.getElementById('bar3');
+    let menuOpen = false;
+
+    menuBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileMenu.classList.toggle('hidden', !menuOpen);
+      bar1.style.transform = menuOpen ? 'rotate(45deg) translate(4px, 4px)' : '';
+      bar2.style.opacity = menuOpen ? '0' : '1';
+      bar3.style.transform = menuOpen ? 'rotate(-45deg) translate(4px, -4px)' : '';
     });
-  }
-</script>
+
+    // Weather
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(pos) {
+        const lat = pos.coords.latitude;
+        const lon = pos.coords.longitude;
+        fetch(`/get-weather/?lat=${lat}&lon=${lon}`)
+          .then(res => res.json())
+          .then(data => {
+            if (data.error) {
+              document.getElementById("weather-temp").textContent = "N/A";
+              document.getElementById("weather-city").textContent = data.error;
+            } else {
+              document.getElementById("weather-temp").textContent = data.temperature + "°C";
+              document.getElementById("weather-city").textContent = data.city;
+              document.getElementById("weather-condition").textContent = data.condition;
+              document.getElementById("weather-tip").textContent = data.tip;
+            }
+          });
+      }, function() {
+        document.getElementById("weather-city").textContent = "Location access denied";
+        document.getElementById("weather-temp").textContent = "N/A";
+        document.getElementById("weather-tip").textContent = "Allow location to get weather tips.";
+      });
+    }
+  </script>
 
 </body>
 </html>

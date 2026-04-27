@@ -2,29 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>History | FloraCure</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Inter', sans-serif; }
-  </style>
+  <style>body { font-family: 'Inter', sans-serif; }</style>
 </head>
 <body class="bg-slate-50 text-slate-900">
 
   <!-- Navbar -->
   <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
-    <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-      
+    <div class="max-w-7xl mx-auto px-4 md:px-6 h-16 md:h-20 flex justify-between items-center">
+
       <div class="flex items-center group cursor-pointer">
         <div class="relative">
           <div class="absolute -inset-1 bg-emerald-400 rounded-full blur opacity-10 group-hover:opacity-40 transition duration-300"></div>
-          <img src="/static/image/fc.png" alt="Logo" class="relative h-12 w-12 ">
+          <img src="/static/image/fc.png" alt="Logo" class="relative h-9 w-9 md:h-12 md:w-12">
         </div>
-        <div class="ml-3 flex flex-col">
-          <span class="text-xl font-black tracking-tighter text-slate-800 leading-none uppercase">
+        <div class="ml-2 md:ml-3 flex flex-col">
+          <span class="text-lg md:text-xl font-black tracking-tighter text-slate-800 leading-none uppercase">
             Flora<span class="text-emerald-600">Cure</span>
           </span>
-          <span class="text-[9px] uppercase tracking-[0.2em] font-bold text-emerald-500">Expert System</span>
+          <span class="text-[8px] md:text-[9px] uppercase tracking-[0.2em] font-bold text-emerald-500">Expert System</span>
         </div>
       </div>
 
@@ -35,69 +34,138 @@
         <a href="hh" class="px-6 py-2 text-sm font-semibold text-slate-600 hover:text-emerald-600 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-200">History</a>
       </div>
 
-      <div class="flex items-center">
+      <div class="flex items-center gap-3">
         <a href="profile" class="group relative">
           <div class="absolute -inset-1 bg-emerald-500 rounded-full opacity-0 group-hover:opacity-100 transition duration-300 blur-sm"></div>
-          <img src="/static/image/icon.png" alt="Profile" class="relative h-11 w-11 rounded-full border-2 border-white object-cover shadow-sm transition-transform duration-200 group-hover:scale-105">
+          <img src="/static/image/icon.png" alt="Profile" class="relative h-9 w-9 md:h-11 md:w-11 rounded-full border-2 border-white object-cover shadow-sm">
         </a>
+        <button id="menu-btn" class="md:hidden flex flex-col justify-center items-center w-9 h-9 rounded-xl bg-slate-100 hover:bg-emerald-50 transition gap-1.5">
+          <span class="w-5 h-0.5 bg-slate-600 transition-all duration-300" id="bar1"></span>
+          <span class="w-5 h-0.5 bg-slate-600 transition-all duration-300" id="bar2"></span>
+          <span class="w-5 h-0.5 bg-slate-600 transition-all duration-300" id="bar3"></span>
+        </button>
       </div>
     </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 px-4 py-3 space-y-1">
+      <a href="home" class="block px-4 py-3 text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition">🏠 Home</a>
+      <a href="dashboard" class="block px-4 py-3 text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition">📊 Dashboard</a>
+      <a href="diagnose" class="block px-4 py-3 text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition">🌿 Diagnose</a>
+      <a href="hh" class="block px-4 py-3 text-sm font-semibold text-emerald-600 bg-emerald-50 rounded-xl">📜 History</a>
+      <a href="profile" class="block px-4 py-3 text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition">👤 Profile</a>
+    </div>
   </nav>
-      
 
   <!-- History Section -->
-  <section class="max-w-6xl mx-auto px-6 py-16">
-    <!-- Gradient Heading -->
-    <h1 class="text-4xl font-extrabold italic 
-               bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800 
+  <section class="max-w-6xl mx-auto px-4 md:px-6 py-8 md:py-16 pb-24 md:pb-16">
+
+    <h1 class="text-2xl md:text-4xl font-extrabold italic
+               bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800
                bg-clip-text text-transparent mb-2 drop-shadow-lg">
       Diagnosis History
     </h1>
-    <p class="text-slate-600 mb-10">All your past plant diagnoses in one place.</p>
+    <p class="text-slate-600 mb-6 md:mb-10 text-sm md:text-base">All your past plant diagnoses in one place.</p>
 
-    <!-- Diagnosis List (Dynamic Loop) -->
-    <div class="space-y-6">
+    <div class="space-y-4 md:space-y-6">
       {% for d in diagnoses %}
-      <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-6 flex items-center space-x-6 hover:shadow-2xl transition">
 
-        <!-- Left Side: Image -->
-        {% if d.plant_image %}
-          <img src="{{ d.plant_image.url }}" alt="{{ d.plant_name }}" class="h-24 w-24 rounded-xl shadow-lg border border-emerald-200 object-cover">
-        {% else %}
-          <div class="h-24 w-24 flex items-center justify-center bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-600 italic">
-            No Image
+      <!-- Mobile Card Layout -->
+      <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-xl p-4 md:p-6 hover:shadow-2xl transition">
+
+        <!-- Top: Image + Title -->
+        <div class="flex items-start space-x-4">
+          {% if d.plant_image %}
+            <img src="{{ d.plant_image.url }}" alt="{{ d.plant_name }}"
+                 class="h-16 w-16 md:h-24 md:w-24 rounded-xl shadow-lg border border-emerald-200 object-cover flex-shrink-0">
+          {% else %}
+            <div class="h-16 w-16 md:h-24 md:w-24 flex items-center justify-center bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-600 italic text-xs flex-shrink-0">
+              No Image
+            </div>
+          {% endif %}
+
+          <!-- Text -->
+          <div class="flex-1 min-w-0">
+            <h3 class="text-sm md:text-lg font-bold text-emerald-700 leading-tight">
+              🌱 {{ d.plant_name }} — {{ d.disease }}
+            </h3>
+            <p class="italic text-slate-600 text-xs md:text-sm mt-1 truncate">{{ d.symptoms }}</p>
+            <p class="text-xs text-slate-400 mt-1">{{ d.date|date:"d M Y, h:i A" }}</p>
+            <p class="text-emerald-600 font-semibold text-xs md:text-sm mt-1">Cure: {{ d.cure }}</p>
           </div>
-        {% endif %}
-
-        <!-- Right Side: Text -->
-        <div class="flex-1">
-          <h3 class="text-lg font-bold text-emerald-700">🌱 {{ d.plant_name }} — {{ d.disease }}</h3>
-          <p class="italic text-slate-600">{{ d.symptoms }}</p>
-          <p class="text-sm text-slate-500">{{ d.date|date:"d M Y, h:i A" }}</p>
-          <p class="text-emerald-600 font-semibold">Cure: {{ d.cure }}</p>
         </div>
 
-        <!-- Actions -->
-        <div class="space-x-3">
-         <a href="{% url 'diagnosis_detail' d.pk %}" class="text-emerald-600 hover:text-emerald-800 font-semibold">View</a>
-         <a href="{% url 'diagnosis_pdf' d.pk %}" class="text-emerald-600 hover:text-emerald-800 font-semibold">PDF</a>
-         {% if d.is_cured %}
-    <span class="bg-emerald-100 text-emerald-700 text-sm font-semibold px-4 py-1.5 rounded-lg">
-      ✅ Cured
-    </span>
-  {% else %}
-    <a href="{% url 'mark_cured' d.pk %}" 
-       class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-4 py-1.5 rounded-lg shadow transition">
-      💊 Cure
-    </a>
-       {% endif %}
+        <!-- Bottom: Action Buttons -->
+        <div class="flex items-center gap-2 mt-4 flex-wrap">
+          <a href="{% url 'diagnosis_detail' d.pk %}"
+             class="flex-1 md:flex-none text-center text-emerald-600 hover:text-emerald-800 font-semibold text-sm border border-emerald-300 px-3 py-2 rounded-lg hover:bg-emerald-50 transition">
+            👁 View
+          </a>
+          <a href="{% url 'diagnosis_pdf' d.pk %}"
+             class="flex-1 md:flex-none text-center text-emerald-600 hover:text-emerald-800 font-semibold text-sm border border-emerald-300 px-3 py-2 rounded-lg hover:bg-emerald-50 transition">
+            📄 PDF
+          </a>
+          {% if d.is_cured %}
+            <span class="flex-1 md:flex-none text-center bg-emerald-100 text-emerald-700 text-sm font-semibold px-3 py-2 rounded-lg">
+              ✅ Cured
+            </span>
+          {% else %}
+            <a href="{% url 'mark_cured' d.pk %}"
+               class="flex-1 md:flex-none text-center bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-3 py-2 rounded-lg shadow transition">
+              💊 Cure
+            </a>
+          {% endif %}
         </div>
+
       </div>
       {% empty %}
-      <p class="text-slate-600 italic">No diagnosis records found.</p>
+      <div class="text-center py-16">
+        <p class="text-4xl mb-4">🌱</p>
+        <p class="text-slate-600 italic">No diagnosis records found.</p>
+        <a href="diagnose" class="mt-4 inline-block bg-emerald-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg transition hover:-translate-y-1">
+          + New Diagnosis
+        </a>
+      </div>
       {% endfor %}
     </div>
   </section>
+
+  <!-- Bottom Mobile Nav -->
+  <div class="fixed bottom-0 left-0 right-0 md:hidden bg-white border-t border-slate-200 flex justify-around items-center py-2 z-50 shadow-lg">
+    <a href="home" class="flex flex-col items-center text-slate-500 hover:text-emerald-600 transition">
+      <span class="text-xl">🏠</span>
+      <span class="text-[10px] font-semibold mt-0.5">Home</span>
+    </a>
+    <a href="dashboard" class="flex flex-col items-center text-slate-500 hover:text-emerald-600 transition">
+      <span class="text-xl">📊</span>
+      <span class="text-[10px] font-semibold mt-0.5">Dashboard</span>
+    </a>
+    <a href="diagnose" class="flex flex-col items-center text-slate-500 hover:text-emerald-600 transition">
+      <span class="text-xl">🌿</span>
+      <span class="text-[10px] font-semibold mt-0.5">Diagnose</span>
+    </a>
+    <a href="hh" class="flex flex-col items-center text-emerald-600">
+      <span class="text-xl">📜</span>
+      <span class="text-[10px] font-semibold mt-0.5">History</span>
+    </a>
+    <a href="profile" class="flex flex-col items-center text-slate-500 hover:text-emerald-600 transition">
+      <span class="text-xl">👤</span>
+      <span class="text-[10px] font-semibold mt-0.5">Profile</span>
+    </a>
+  </div>
+
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let menuOpen = false;
+    menuBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileMenu.classList.toggle('hidden', !menuOpen);
+      document.getElementById('bar1').style.transform = menuOpen ? 'rotate(45deg) translate(4px, 4px)' : '';
+      document.getElementById('bar2').style.opacity = menuOpen ? '0' : '1';
+      document.getElementById('bar3').style.transform = menuOpen ? 'rotate(-45deg) translate(4px, -4px)' : '';
+    });
+  </script>
 
 </body>
 </html>
