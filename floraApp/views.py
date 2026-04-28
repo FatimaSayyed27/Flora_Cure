@@ -31,7 +31,7 @@ def login_view(request):
             login(request, user)
             return redirect("home")
         else:
-            return render(request, "login.html", {"error": "Invalid credentials"})
+            return render(request, "login.html", {"error": "Invalid username or password! "})
     return render(request, "login.html")
 
 def register_view(request):

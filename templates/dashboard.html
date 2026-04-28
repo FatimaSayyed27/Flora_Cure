@@ -46,21 +46,21 @@
         </a>
 
         <!-- Hamburger Button (mobile only) -->
-        <button id="menu-btn" class="md:hidden flex flex-col justify-center items-center w-9 h-9 rounded-xl bg-slate-100 hover:bg-emerald-50 transition gap-1.5">
+        <!-- <button id="menu-btn" class="md:hidden flex flex-col justify-center items-center w-9 h-9 rounded-xl bg-slate-100 hover:bg-emerald-50 transition gap-1.5">
           <span class="w-5 h-0.5 bg-slate-600 transition-all duration-300" id="bar1"></span>
           <span class="w-5 h-0.5 bg-slate-600 transition-all duration-300" id="bar2"></span>
           <span class="w-5 h-0.5 bg-slate-600 transition-all duration-300" id="bar3"></span>
-        </button>
+        </button> -->
       </div>
     </div>
 
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 px-4 py-3 space-y-1">
+    <!-- <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 px-4 py-3 space-y-1">
       <a href="home" class="block px-4 py-3 text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition">🏠 Home</a>
       <a href="dashboard" class="block px-4 py-3 text-sm font-semibold text-emerald-600 bg-emerald-50 rounded-xl">📊 Dashboard</a>
       <a href="diagnose" class="block px-4 py-3 text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition">🌿 Diagnose</a>
       <a href="hh" class="block px-4 py-3 text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition">📜 History</a>
-      <a href="profile" class="block px-4 py-3 text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition">👤 Profile</a>
+      <a href="profile" class="block px-4 py-3 text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition">👤 Profile</a> -->
     </div>
   </nav>
 
@@ -162,10 +162,10 @@
       <span class="text-xl">📜</span>
       <span class="text-[10px] font-semibold mt-0.5">History</span>
     </a>
-    <a href="profile" class="flex flex-col items-center text-slate-500 hover:text-emerald-600 transition">
+    <!-- <a href="profile" class="flex flex-col items-center text-slate-500 hover:text-emerald-600 transition">
       <span class="text-xl">👤</span>
       <span class="text-[10px] font-semibold mt-0.5">Profile</span>
-    </a>
+    </a> -->
   </div>
 
   <!-- Bottom padding for mobile nav -->
@@ -173,20 +173,20 @@
 
   <script>
     // Hamburger menu toggle
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const bar1 = document.getElementById('bar1');
-    const bar2 = document.getElementById('bar2');
-    const bar3 = document.getElementById('bar3');
-    let menuOpen = false;
+    // const menuBtn = document.getElementById('menu-btn');
+    // const mobileMenu = document.getElementById('mobile-menu');
+    // const bar1 = document.getElementById('bar1');
+    // const bar2 = document.getElementById('bar2');
+    // const bar3 = document.getElementById('bar3');
+    // let menuOpen = false;
 
-    menuBtn.addEventListener('click', () => {
-      menuOpen = !menuOpen;
-      mobileMenu.classList.toggle('hidden', !menuOpen);
-      bar1.style.transform = menuOpen ? 'rotate(45deg) translate(4px, 4px)' : '';
-      bar2.style.opacity = menuOpen ? '0' : '1';
-      bar3.style.transform = menuOpen ? 'rotate(-45deg) translate(4px, -4px)' : '';
-    });
+    // menuBtn.addEventListener('click', () => {
+    //   menuOpen = !menuOpen;
+    //   mobileMenu.classList.toggle('hidden', !menuOpen);
+    //   bar1.style.transform = menuOpen ? 'rotate(45deg) translate(4px, 4px)' : '';
+    //   bar2.style.opacity = menuOpen ? '0' : '1';
+    //   bar3.style.transform = menuOpen ? 'rotate(-45deg) translate(4px, -4px)' : '';
+    // });
 
     // Weather
     if (navigator.geolocation) {
