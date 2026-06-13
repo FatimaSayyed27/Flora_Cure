@@ -376,7 +376,7 @@ def profile_view(request):
 
     return render(request, "profile.html", {
         "form": form,
-        "user": user   # ✅ template mein user bhejo
+        "user": user   
     })
 
 def history_view(request):
